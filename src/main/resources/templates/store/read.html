@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+
+        <div style="width:1200px; margin:0 auto;">
+
+            <div style="float:left; width:600px; margin:0 auto; margin-top:20px;">
+                <div style="float:left;">
+                    <img th:src="${store.store_picture_url}" alt="첨부이미지" th:if="${store.store_picture_url != null}" />
+                </div>
+                <div style="float:left;">
+                        [[${store.name}]] <br />
+                        [[${store.content}]] <br />
+                        [[${store.address}]] <br />
+                    <a href="#" style="float:right">♡</a>
+                </div>
+
+                <div style="clear:both;"></div>
+
+                <div style="margin-top:20px; border:1px solid gray;">
+                    <button style="width:48%;">메뉴</button>
+                    <button style="width:48%; float:right;">리뷰</button>
+                </div>
+
+                <div class="menu-list" style="border:1px solid black; margin-top:10px; cursor:pointer;" th:each="menu : ${menuList}" >
+                    <input type="hidden" name="menu_id" th:value="${menu.menu_id}" />
+                    <input type="hidden" name="name" th:value="${menu.name}" />
+                    <input type="hidden" name="price" th:value="${menu.price}" />
+                    <div style="float:left;">
+                        <img th:src="${menu.menu_url}" alt="첨부이미지" th:if="${menu.menu_url != null}" />
+                    </div>
+                    <div style="float:left;">
+                        [[${menu.name}]] <br />
+                        [[${menu.price}]]
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+
+            <div style="float:right; width:500px; border:1px solid gray; text-align:center; margin-top:20px;">
+                <div>장바구니</div>
+                <hr />
+                <div class="order-menu-list">
+                </div>
+                <hr />
+                <div>합계 : <span class="total-price">0</span>원</div>
+                <button>주문하기</button>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            $(function() {
+                // 메뉴 추가
+                $(".menu-list").click(function() {
+                    let name = $(this).find("input[name=name]").val();
+                    let price = $(this).find("input[name=price]").val();
+                    let orderMenuList = "<ul><li>"+name+" <button onclick='deleteMenu(this)'>삭제</button></li><li>가격:<span class='price'>"+price+"</span>원</li></ul>";
+                    $(".order-menu-list").append(orderMenuList);
+
+                    let totalPrice = Number($(".total-price").text()) + Number(price);
+                    $(".total-price").text(totalPrice);
+
+                });
+            });
+
+            // 메뉴 삭제
+            function deleteMenu(obj) {
+                let price = $(obj).parents("li").next().find(".price").text();
+                let totalPrice = Number($(".total-price").text()) - Number(price);
+
+                $(".total-price").text(totalPrice);
+                $(obj).parents("ul").remove();
+            }
+
+        </script>
+
+    </th:block>
+
+</th:block>

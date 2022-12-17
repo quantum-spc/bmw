@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.baemin.login.mapper.LoginMapper">
+    <select id="loginCheckUser" parameterType="web.baemin.login.dto.User" resultType="web.baemin.login.dto.User">
+        SELECT * FROM users
+            <where>
+                login_id = #{login_id}
+                <if test="password != null">
+                    AND PASSWORD = #{password}
+                </if>
+            </where>
+
+    </select>
+
+    <insert id="userInsert" parameterType="web.baemin.login.dto.User">
+        INSERT INTO users(login_id, created_date, modified_date) VALUES(#{login_id}, NOW(), NOW())
+    </insert>
+</mapper>

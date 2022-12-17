@@ -5,10 +5,11 @@
 
     <th:block th:fragment="content">
 
-        <div th:each="storeType : ${storeTypeList}" >
-
-            <div style="float:left; width:15%; border:1px solid black; margin:3%; height:200px;">
-                <a th:href="@{/store/list(food_category_cd = ${storeType.food_category_cd} )}">[[${storeType.food_category_name}]]</a>
+        <div class="menu" th:each="storeType : ${storeTypeList}" >
+            <div id="category_img">
+                <a th:href="@{/store/list(food_category_cd = ${storeType.food_category_cd} )}">
+                    <img th:src="'/img/img'+ ${storeType.food_category_cd} + '.png'">
+                    [[${storeType.food_category_name}]]</a>
             </div>
 
         </div>

@@ -4,20 +4,18 @@ CREATE TABLE `board` (
      `title` VARCHAR(255) NULL DEFAULT NULL COMMENT '제목',
      `content` VARCHAR(255) NULL DEFAULT NULL COMMENT '내용',
      PRIMARY KEY (`id`) USING BTREE
-)
-;
+);
 CREATE TABLE `users` (
-	`user_id`	bigint(20)	NOT NULL,
-	`login_id`	varchar(100)	NOT NULL,
-	`password`	varchar(255)	NOT NULL,
-	`phone`	varchar(11)	NOT NULL,
-	`email`	varchar(100)	NOT NULL,
-	`grade`	varchar(100)	NOT NULL	DEFAULT '고마운분'	COMMENT '고마운분/귀한분/더귀한분/천생연분',
-	`role`	varchar(100)	NOT NULL	DEFAULT '회원'	COMMENT '회원/사장',
+	`user_id`	bigint(20)	NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+	`login_id`	varchar(100)	NULL,
+	`password`	varchar(255)	NULL,
+	`phone`	varchar(11)	NULL,
+	`email`	varchar(100)	NULL,
+	`grade`	varchar(100)	NULL	DEFAULT '고마운분'	COMMENT '고마운분/귀한분/더귀한분/천생연분',
 	`current_address`	varchar(255)	NULL,
-	`created_date`	timestamp	NOT NULL,
-	`modified_date`	timestamp	NOT NULL,
-	`status`	varchar(255)	NOT NULL	DEFAULT '일반'	COMMENT '일반/휴면/탈퇴/정지'
+	`created_date`	timestamp	NULL,
+	`modified_date`	timestamp	NULL,
+	`status`	varchar(255)	NULL	DEFAULT '일반'	COMMENT '일반/휴면/탈퇴/정지'
 );
 
 CREATE TABLE `address` (
@@ -37,13 +35,14 @@ CREATE TABLE `orders` (
 	`requests`	varchar(255)	NULL,
 	`reated_date`	timestamp	NOT NULL,
 	`modified_date`	timestamp	NOT NULL,
-	`status`	varchar(255)	NOT NULL	DEFAULT '정상'
+	`status`	varchar(255)	NOT NULL	DEFAULT '정상',
+	`order_address`	varchar(255)	NOT NULL
 );
 
 CREATE TABLE `menu` (
 	`menu_id`	bigint(20)	NOT NULL,
 	`store_id`	bigint(20)	NOT NULL,
-	`name`	varchar(255)	NOT NULL,
+	`menu_name`	varchar(255)	NOT NULL,
 	`price`	int(11)	NOT NULL,
 	`menu_url`	text	NULL,
 	`created_date`	timestamp	NOT NULL,
@@ -54,7 +53,7 @@ CREATE TABLE `menu` (
 CREATE TABLE `store` (
 	`store_id`	bigint(20)	NOT NULL,
 	`food_category_cd`	int(20)	NOT NULL,
-	`name`	varchar(255)	NOT NULL,
+	`store_name`	varchar(255)	NOT NULL,
 	`address`	varchar(255)	NOT NULL,
 	`store_picture_url`	text	NULL,
 	`phone`	varchar(20)	NOT NULL,
@@ -133,8 +132,7 @@ ALTER TABLE `menu` ADD CONSTRAINT `PK_MENU` PRIMARY KEY (
 );
 
 ALTER TABLE `store` ADD CONSTRAINT `PK_STORE` PRIMARY KEY (
-	`store_id`,
-	`food_category_cd`
+	`store_id`
 );
 
 ALTER TABLE `coupon` ADD CONSTRAINT `PK_COUPON` PRIMARY KEY (

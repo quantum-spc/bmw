@@ -15,4 +15,8 @@
         SELECT * FROM menu WHERE store_id = #{food_category_cd} ORDER BY menu_id ASC
     </select>
 
+    <select id="couponList" resultType="web.baemin.store.dto.Coupon">
+        SELECT * FROM coupon ORDER BY coupon_id ASC
+    </select>
+
 </mapper>

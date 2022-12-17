@@ -1,6 +1,7 @@
 package web.baemin.store.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import web.baemin.store.dto.Coupon;
 import web.baemin.store.dto.Menu;
 import web.baemin.store.dto.Store;
 
@@ -14,5 +15,7 @@ public interface StoreMapper {
     Store storeRead(String store_id);
 
     List<Menu> menuList(String store_id);
+
+    List<Coupon> couponList();
 
 }

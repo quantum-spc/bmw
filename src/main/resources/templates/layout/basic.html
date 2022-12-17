@@ -2,80 +2,156 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="setContent(content)">
-<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
 
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+        <!-- 블럭바 -->
+        <div class="header">
 
-    <!-- Custom styles for this template -->
-    <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+            <!-- 해더-->
+            <hc>
 
-    <!-- Bootstrap core JavaScript -->
-    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+            <!--로고-->
+            <a class="logo" href="/main/index"><img src="/img/logo.png" /><span class="sr-only">(current)</span></a>
 
-</head>
-
-<body>
-
-<div class="d-flex" id="wrapper">
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0" style="margin-left:0px !important;">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/main/index">배달의 민족 <span class="sr-only">(current)</span></a>
-                    </li>
-
-                </ul>
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <button onclick="javascript:location.href='storeApi'">가게API</button>
-                    </li>
-                    <li class="nav-item active">
-                        <button>로그아웃</button>
-                    </li>
-                    <li class="nav-item active">
-                        <button>장바구니</button>
-                    </li>
-                    <li class="nav-item active">
-                        <button>구글 아이디로 로그인</button>
-                    </li>
-                    <li class="nav-item active">
-                        <input />
-                    </li>
-                </ul>
+            <div class="button_container">
+                <p class="description"></p>
+                <button th:if="${#strings.isEmpty(session.loginUserSession)}" class="btn" onclick="javascript:location.href='/login/index'">Google 로그인</button>
+                <button th:if="${session.loginUserSession}" class="btn" onclick="javascript:location.href='/login/logoutProc'">로그아웃</button>
+                <!--<p class="link">
+          Design by
+          <a href="https://dribbble.com/skytrip" target="_blank">SkyTrip</a>
+        </p>-->
             </div>
-        </nav>
 
-        <div class="container-fluid">
-
-            <th:block th:replace = "${content}"></th:block>
+            </hc>
 
         </div>
 
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Simple Sidebar - Start Bootstrap Template</title>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+
+        <!-- Bootstrap core JavaScript -->
+        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+        <link th:href="@{/css/style.css?after}" rel="stylesheet">
+        <link th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css}" rel="stylesheet">
+        <link th:href="@{//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css}" rel="stylesheet" >
+
+
+    </head>
+
+
+    <body onload="checkCookie()">
+
+
+<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+    <img class="he" src="/img/body.jpg">
+
+    <li>
+        <a class="cit" th:href="@{/near/nearstore}" ><img src="/img/cit.png" /></a>
+    </li>
+    <li>
+        <input class="address" type="text" id="inputAddress" onclick="setCAddress()" placeholder="주소 입력..">
+    </li>
+    <li>
+        <a class="search" th:href="@{/near/searchstore}"><button>입력한 주소로 검색</button></a>
+    </li>
+
+</ul>
+
+
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <script th:inline="javascript">
+                $(function() {
+                    var msg = [[${msg}]];
+                    if (msg != null) alert(msg);
+                });
+
+            </script>
+
+            <script th:inline="javascript">
+                    function setCAddress() {
+                        new daum.Postcode({
+                            oncomplete: function (data) {
+                                console.log(data.address);
+                                $('#inputAddress').val(data.address);
+                                setCookie("inputAddr", data.address, 30);
+                            }
+                        }).open();
+                    }
+                </script>
+
+            <script th:inline="javascript">
+                    function setCookie(cname, cvalue, exdays) {
+                        var d = new Date();
+                        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                        var expires = "expires=" + d.toGMTString();
+                        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                    }
+
+                    function getCookie(cname) {
+                        var name = cname + "=";
+                        var decodedCookie = decodeURIComponent(document.cookie);
+                        var ca = decodedCookie.split(';');
+                        for (var i = 0; i < ca.length; i++) {
+                            var c = ca[i];
+                            while (c.charAt(0) == ' ') {
+                                c = c.substring(1);
+                            }
+                            if (c.indexOf(name) == 0) {
+                                return c.substring(name.length, c.length);
+                            }
+                        }
+                        return "";
+                    }
+
+                    function checkCookie() {
+                        var cAddress = getCookie("inputAddr");
+                        if (cAddress != "") {
+                            $('#inputAddress').val(cAddress);
+                        } else {
+                            if ($('#inputAddress').val() != "" && $('#inputAddress').val() != null) {
+                                setCookie("inputAddr", $('#inputAddress').val(), 30);
+                            }
+                        }
+                    }
+                </script>
+
+            <div class="container-fluid">
+
+                <th:block th:replace="${content}"></th:block>
+
+            </div>
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
 
-</div>
-<!-- /#wrapper -->
+    </body>
 
-</body>
 </th:block>
-</html>
 
+</html>

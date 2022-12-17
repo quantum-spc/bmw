@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Review</h1>
+
+        <div class="form-group">
+            <label>리뷰 작성</label>
+            <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly>
+        </div>
+    </th:block>
+
+    <div class="form-group">
+        <label>음식은 어떠셨어요?<span class="grade"></span></label>
+        <div class='starrr'></div>
+
+    </div>
+
+    <div class="uploadResult">
+        <ul >
+            <li th:each="reviewImage: ${dto.imageDTOList}" th:data-file="${reviewImage.getThumbnailURL()}">
+                <img  th:if="${reviewImage.path != null}" th:src="|/display?fileName=${reviewImage.getThumbnailURL()}|">
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <label>Content</label>
+        <input type="text" class="form-control" name="text" placeholder="음식의 맛, 양, 포장 상태 등 음식에 대한 솔직한 리뷰를 남겨주세요.(선택)">
+    </div>
+
+
+    <button type="button" class="btn btn-primary">
+        완료 <span class="badge badge-light"></span>
+    </button>
+
+
+    <script th:src="@{/starrr.js}"></script>
+    <link th:href="@{/css/starrr.css}" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    <script>
+        $(document).ready(function(e) {
+            var grade = 0;
+            var mno = [[${dto.mno}]]};
+
+            $('.starrr).starrr({
+                rating: rating,
+                change: function(e, value){
+                    if(value){
+                        console.log(value);
+                        rating = value;
+                    }
+                }
+            });
+        });
+    </script>
+
+</th:block>
+</html>

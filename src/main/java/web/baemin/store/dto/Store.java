@@ -13,7 +13,7 @@ public class Store {
 
     private int food_category_cd;
 
-    private String name;
+    private String store_name;
     private String address;
     private String store_picture_url;
     private String phone;

@@ -1,5 +1,6 @@
 package web.baemin.store.service;
 
+import web.baemin.store.dto.Coupon;
 import web.baemin.store.dto.Menu;
 import web.baemin.store.dto.Store;
 
@@ -11,6 +12,8 @@ public interface StoreService {
     Store storeRead(String store_id);
 
     List<Menu> menuList(String store_id);
+
+    List<Coupon> couponList();
 
 
 }

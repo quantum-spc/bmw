@@ -1,0 +1,136 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+  width: 100%;
+  height: 500px;
+}
+
+.header{
+  width: 100%;
+  height: 25%;
+  background-color: rgb(66, 239, 216);
+}
+
+/*로고*/
+.logo {
+position:relative;
+top:0px;
+left: 150px;
+z-index:2;}
+.logo img { width:300px; }
+
+
+/*로그인 버튼 */
+.button_container{
+  position: relative;
+  bottom:90px;
+  left: 500px;
+  z-index:2;
+}
+
+.description, .link {
+  font-family: 'Amatic SC', cursive;
+  text-align: center;
+}
+
+.description {
+  font-size: 35px;
+}
+
+.btn {
+  border: none;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #222;
+  padding: 17px 60px;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+}
+
+.btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 490%;
+  width: 140%;
+  background: #78c7d2;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btn:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+.link {
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.link a {
+  color: #000;
+  font-size: 25px;
+}
+
+/* 검색 작업 */
+
+
+.cit{
+ position:relative;
+ bottom: 130px;
+ left: 550px;
+ z-index:1;
+}
+.cit img {
+width:50px;
+}
+
+.address{
+ position:relative;
+ width: 400px;
+ bottom: 160px;
+ left: 600px;
+ z-index:1;
+}
+
+.search{
+ position:relative;
+ bottom: 190px;
+ left: 1000px;
+ z-index:1;
+}
+
+.body_cit{
+position:relative;
+
+}
+
+/* 메뉴 */
+.menu{
+ position:relative;
+
+ float:left;
+ left: 125px;
+ width:15%;
+ border:1px
+ solid black;
+ margin:3%;
+ height:200px;"
+}
